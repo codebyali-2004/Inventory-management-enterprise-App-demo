@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Products
+{% endblock %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+
+</head>
+<body>
+    <!---boostrap navigation added-->
+    
+
+
+
+<!--navigation-->
+
+<div class="container mt-5">
+    <h2 class="text-center text-primary mb-4">Product List</h2>
+    <div class="text-end mb-3">
+        <a class="btn btn-success shadow text-center" href="{% url 'product_create' %}"> Add Product</a>
+
+    </div>
+
+    
+    <hr>
+    <table border="1" cellpadding="10" class="table table-bordered table-hover align-middle text-center shadow">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Image</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+
+        </thead>
+        
+        {% for product in products %}
+        <tr>
+            <td>{{ product.id }}</td>
+            <td>{{ product.product_name }}</td>
+            <td>{{ product.category }}</td>
+            <td>
+                {% if product.image %}
+                <img class="rounded shadow-md" src="{{ product.image.url }}" width="70"
+                height="70">
+                {% else %}
+                No Image
+                {% endif %}
+            </td>
+            <td>{{ product.quantity }}</td>
+            <td>{{ product.price }}</td>
+            <td>
+                <a href="{% url 'product_update' product.id %}" class="btn btn-warning btn-sm">Edit</a> |
+                <a href="{% url 'product_delete' product.id %}" class="btn btn-danger btn-sm"
+                onClick="return confirm('delete this product ?')">Delete</a>
+            </td>
+        </tr>
+        {% endfor %} 
+    </table>
+</div>
+
+{% endblock %}
+
+</body>
+</html>
+
