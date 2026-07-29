@@ -15,12 +15,14 @@ def product_create(request):
         if form.is_valid():
             form.save()
             return redirect ("product_list")
+        else:
+            print(form.errors)
     else:
         form=ProductForm()
             
     return render(request, "product_form.html",{"form":form})    
     
-#product update 
+#product update the code
 def product_update(request, id):
     product = get_object_or_404(Product, id=id)
 
